@@ -1,0 +1,56 @@
+@font-face {
+    font-family: 'Cousine';
+    src: url('../fonts/cousine/Cousine-BoldItalic.eot');
+    src: local('Cousine Bold Italic'), local('Cousine-BoldItalic'),
+        url('../fonts/cousine/Cousine-BoldItalic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/cousine/Cousine-BoldItalic.woff2') format('woff2'),
+        url('../fonts/cousine/Cousine-BoldItalic.woff') format('woff'),
+        url('../fonts/cousine/Cousine-BoldItalic.ttf') format('truetype'),
+        url('../fonts/cousine/Cousine-BoldItalic.svg#Cousine-BoldItalic') format('svg');
+    font-weight: bold;
+    font-style: italic;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cousine';
+    src: url('../fonts/cousine/Cousine-Bold.eot');
+    src: local('Cousine Bold'), local('Cousine-Bold'),
+        url('../fonts/cousine/Cousine-Bold.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/cousine/Cousine-Bold.woff2') format('woff2'),
+        url('../fonts/cousine/Cousine-Bold.woff') format('woff'),
+        url('../fonts/cousine/Cousine-Bold.ttf') format('truetype'),
+        url('../fonts/cousine/Cousine-Bold.svg#Cousine-Bold') format('svg');
+    font-weight: bold;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cousine';
+    src: url('../fonts/cousine/Cousine-Regular.eot');
+    src: local('Cousine Regular'), local('Cousine-Regular'),
+        url('../fonts/cousine/Cousine-Regular.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/cousine/Cousine-Regular.woff2') format('woff2'),
+        url('../fonts/cousine/Cousine-Regular.woff') format('woff'),
+        url('../fonts/cousine/Cousine-Regular.ttf') format('truetype'),
+        url('../fonts/cousine/Cousine-Regular.svg#Cousine-Regular') format('svg');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Cousine';
+    src: url('../fonts/cousine/Cousine-Italic.eot');
+    src: local('Cousine Italic'), local('Cousine-Italic'),
+        url('../fonts/cousine/Cousine-Italic.eot?#iefix') format('embedded-opentype'),
+        url('../fonts/cousine/Cousine-Italic.woff2') format('woff2'),
+        url('../fonts/cousine/Cousine-Italic.woff') format('woff'),
+        url('../fonts/cousine/Cousine-Italic.ttf') format('truetype'),
+        url('../fonts/cousine/Cousine-Italic.svg#Cousine-Italic') format('svg');
+    font-weight: normal;
+    font-style: italic;
+    font-display: swap;
+}
+
