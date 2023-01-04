@@ -2,7 +2,7 @@
 
 #Change directory to script directory
 dir=$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
-cd $dir
+cd "$dir"
 
 #Source python virtual environment
 . venv/bin/activate
