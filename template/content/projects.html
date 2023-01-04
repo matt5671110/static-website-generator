@@ -1,0 +1,43 @@
+{% extends 'templates/base.html' %}
+
+{% block path %}
+<a href="index.html" class="text-decoration-none text-info">~</a><span class="text-info">/</span><a href="projects.html" class="text-decoration-none text-info">projects</a>
+{% endblock %}
+
+{% block navlist %}
+<li><a href="index.html" class="nav-link text-secondary" title="home">~/</a></li>
+<li><a href="about.html" class="nav-link text-secondary">~/about/</a></li>
+{% endblock %}
+
+{% block main %}
+<div class="row">
+	<h2 class="fs-5 terminal-header">Projects</h2>
+</div>
+<div class="row">
+	<div>
+		<a href="https://weather.matthewturner.io/" target="_blank" class="fs-6 terminal-link">Turner Weather</a>
+		<p class="ms-3 mb-0 pb-0">A weather station made using a Raspberry Pi computer. It collects weather information from a variety of sensors and records the data for historical purposes. It also serves a webpage that can be used to view the information it collects and records. The code to interface with the sensors, as well as the web server, was all written by me in python.</p>
+		<ul class="list-inline text-secondary ms-auto ps-3 w-50 text-end">
+			<li class="list-inline-item">[HTML]</li>
+			<li class="list-inline-item">[CSS]</li>
+			<li class="list-inline-item">[JavaScript]</li>
+			<li class="list-inline-item">[CherryPy]</li>
+		</ul>
+	</div>
+</div>
+<hr class="terminal-hr d-none">
+<div class="row d-none">
+	<div>
+		<a href="#" target="_blank" class="fs-6 terminal-link">Some Other Project</a>
+		<p class="ms-3 mb-0 pb-0">A description of said other project.</p>
+		<ul class="list-inline text-secondary ms-auto ps-3 w-50 text-end">
+			<li class="list-inline-item">[Skills]</li>
+			<li class="list-inline-item">[Used]</li>
+			<li class="list-inline-item">[In]</li>
+			<li class="list-inline-item">[Said]</li>
+			<li class="list-inline-item">[Other]</li>
+			<li class="list-inline-item">[Project]</li>
+		</ul>
+	</div>
+</div>
+{% endblock %}

@@ -1,0 +1,104 @@
+{% extends 'templates/base.html' %}
+
+{% block path %}
+<a href="index.html" class="text-decoration-none text-info">~</a><span class="text-info">/</span><a href="about.html" class="text-decoration-none text-info">about</a>
+{% endblock %}
+
+{% block navlist %}
+<li><a href="index.html" class="nav-link text-secondary" title="home">~/</a></li>
+<li><a href="projects.html" class="nav-link text-secondary">~/projects/</a></li>
+{% endblock %}
+
+{% block main %}
+<div class="row">
+	<h2 class="fs-5 terminal-header">About</h2>
+	<div>
+		<div class="text-center d-none">
+			<figure class="figure m-lg-2 float-lg-end">
+				<a href="https://place-hold.it/1920x1080" target="_blank"><img src="https://place-hold.it/350x350" alt="placeholder" class="figure-img"></a>
+				<figcaption class="figure-caption text-center">A photo of me :)</figcaption>
+			</figure>
+		</div>
+		<p>Always interested in how everything works; wants to understand everything, with a particular interest in <strong>computer programming</strong> and <strong>game development</strong>. I also enjoy exploring new trails and seeing nature while driving a car or riding a motorcycle.</p>
+		<p>I have a diverse set of experience from working in multiple industries. For example, I interned for the IT office at my high school, worked in customer service at Walmart, and most recently received a wide variety of experience working for El Paso County Parks. At the parks I did everything from janitorial work, to operating heavy equipment, felling trees, diagnosing and repairing irrigation and electrical problems, and so much more. I truly enjoy diversity of work, and I always love having the opportunity to learn new skills.</p>
+		<p>In my spare time, I currently spend a lot of time tinkering and making electronic things. I have recently gotten into programming microcontrollers and I have been having a blast thinking of all the cool things that can be done with them. Not too long ago, I created a picture frame that displays a new Bible verse every day on an e-ink screen. I also made a weather station by connecting several sensors to a Raspberry Pi computer. The weather station serves a web page with its current info and some historical charts. The weather station is an ever-evolving project, so that consumes some of my leisure time as well.</p>
+		<p>Learning new concepts is always really fun and exciting for me. I like to understand how things work, how things are made, and what are the natural processes that make the world we live in so interesting. Basically, I am fascinated with engineering and science. I love exploring and learning all about this incredible world God gave us.</p>
+	</div>
+</div>
+<hr class="terminal-hr">
+<div class="row">
+	<div class="col-lg-6 p-0">
+		<div class="row m-0 p-0">
+			<h2 class="fs-5 terminal-header">Key Skills & Experience</h2>
+		</div>
+		<div class="d-flex flex-column flex-xl-row justify-content-around justify-content-lg-start">
+			<ul class="terminal-list">
+				<li>Programming
+					<ul>
+						<li>C++
+							<ul>
+								<li>SFML</li>
+							</ul>
+						</li>
+						<li>Python</li>
+						<li>C#</li>
+					</ul>
+				</li>
+				<li>Web
+					<ul>
+						<li>HTML</li>
+						<li>CSS</li>
+						<li>Javascript</li>
+						<li>CherryPy</li>
+					</ul>
+				</li>
+				<li>Equipment
+					<ul>
+						<li>Skid-steer Loader</li>
+						<li>Tractor</li>
+						<li>Grader</li>
+						<li>Dump Truck</li>
+					</ul>
+				</li>
+			</ul>
+			<ul class="terminal-list">
+				<li>Electronics
+					<ul>
+						<li>Microcontrollers</li>
+						<li>Weather Station</li>
+						<li>Discreet Electronics</li>
+					</ul>
+				</li>
+				<li>Vehicle Maintenance
+					<ul>
+						<li>Rebuilt Tractor Engine</li>
+						<li>Oil Changes</li>
+						<li>Brake Jobs</li>
+						<li>Electronic Ignition Repair</li>
+						<li>Radio Installation</li>
+					</ul>
+				</li>
+			</ul>
+		</div>
+	</div>
+	<div class="col-lg-6 p-0 ">
+		<div class="row m-0 p-0">
+			<h2 class="fs-5 terminal-header">Contact</h2>
+		</div>
+<p class="terminal-diagram ps-4">
+┌───────────────────────────────────┐
+│ Matthew Turner                    │
+│ ───────────────────────────────── │
+│                                   │
+│ Email:   <a href="mailto:<redacted>" class="terminal-link"><redacted></a>       │
+│                                   │
+│ Phone:   <a href="tel:719-337-2184" class="terminal-link">(719)337-2184</a>            │
+│                                   │
+│ Website: <a href="https://matthewturner.io/" class="terminal-link">matthewturner.io</a>         │
+│                                   │
+│                                   │
+└───────────────────────────────────┘
+</p>
+	</div>
+</div>
+{% endblock %}
