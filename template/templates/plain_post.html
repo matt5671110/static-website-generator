@@ -1,0 +1,28 @@
+{% extends 'templates/base.html' %}
+
+{% block title %}- {{ post.title }}{% endblock %}
+
+{% block path %}
+<a href="/index.html" class="text-decoration-none text-info">~</a><span class="text-info">/</span><a href="/posts.html" class="text-decoration-none text-info">posts</a><span class="text-info">/</span><a href="{{ post.url }}" class="text-decoration-none text-info">{{ post.id }}</a>
+{% endblock %}
+
+{% block navlist %}
+<li><a href="/index.html" class="nav-link text-secondary" title="home">~/</a></li>
+<li><a href="/about.html" class="nav-link text-secondary">~/about/</a></li>
+<li><a href="/projects.html" class="nav-link text-secondary">~/projects/</a></li>
+<li><a href="/posts.html" class="nav-link text-secondary">~/posts/</a></li>
+{% endblock %}
+
+{% block main %}
+<small class="text-secondary">Written by {{ post.author }} on {{ post.date }}</small>
+{{ post.content }}
+{% if post.tags %}
+
+Tags:
+<ul class="list-inline text-secondary me-auto ps-3">
+	{% for tag in post.tags %}
+	<li class="list-inline-item">[{{ tag }}]</li>
+	{% endfor %}
+</ul>
+{% endif %}
+{% endblock %}

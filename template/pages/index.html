@@ -1,19 +1,19 @@
 {% extends 'templates/base.html' %}
 
 {% block path %}
-<a href="index.html" class="text-decoration-none text-info">~</a>
+<a href="/index.html" class="text-decoration-none text-info">~</a>
 {% endblock %}
 
 {% block navlist %}
-<li><a href="about.html" class="nav-link text-secondary">about/</a></li>
-<li><a href="projects.html" class="nav-link text-secondary">projects/</a></li>
+<li><a href="/about.html" class="nav-link text-secondary">about/</a></li>
+<li><a href="/projects.html" class="nav-link text-secondary">projects/</a></li>
 {% endblock %}
 
 {% block main %}
 <div class="row">
 	<h2 class="fs-5 terminal-header">About</h2>
 	<p>Always interested in how everything works; wants to understand everything, with a particular interest in <strong>computer programming</strong> and <strong>game development</strong>. I also enjoy exploring new trails and seeing nature while driving a car or riding a motorcycle.</p>
-	<a href="about.html" class="nav-link terminal-link">(more)</a>
+	<a href="/about.html" class="nav-link terminal-link">(more)</a>
 </div>
 <hr class="terminal-hr">
 <div class="row">
@@ -22,6 +22,6 @@
 		<a href="https://weather.matthewturner.io/" target="_blank" class="fs-6 terminal-link">Turner Weather</a>
 		<p class="ms-3">A weather station made using a Raspberry Pi computer. It collects weather information from a variety of sensors and records the data for historical purposes. It also serves a webpage that can be used to view the information it collects and records. The code to interface with the sensors, as well as the web server, was all written by me in python.</p>
 	</div>
-	<a href="projects.html" class="nav-link terminal-link">(more)</a>
+	<a href="/projects.html" class="nav-link terminal-link">(more)</a>
 </div>
 {% endblock %}
