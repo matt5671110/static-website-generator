@@ -7,21 +7,41 @@
 {% block navlist %}
 <li><a href="/about.html" class="nav-link text-secondary">about/</a></li>
 <li><a href="/projects.html" class="nav-link text-secondary">projects/</a></li>
+<li><a href="/posts.html" class="nav-link text-secondary">posts/</a></li>
 {% endblock %}
 
 {% block main %}
 <div class="row">
 	<h2 class="fs-5 terminal-header">About</h2>
-	<p>Always interested in how everything works; wants to understand everything, with a particular interest in <strong>computer programming</strong> and <strong>game development</strong>. I also enjoy exploring new trails and seeing nature while driving a car or riding a motorcycle.</p>
+	<div class="ms-3">
+		<p>Always interested in how everything works; wants to understand everything, with a particular interest in <strong>computer programming</strong> and <strong>game development</strong>. I also enjoy exploring new trails and seeing nature while driving a car or riding a motorcycle.</p>
+	</div>
 	<a href="/about.html" class="nav-link terminal-link">(more)</a>
 </div>
 <hr class="terminal-hr">
 <div class="row">
 	<h2 class="fs-5 terminal-header">Projects</h2>
-	<div>
+	<div class="ms-3">
 		<a href="https://weather.matthewturner.io/" target="_blank" class="fs-6 terminal-link">Turner Weather</a>
 		<p class="ms-3">A weather station made using a Raspberry Pi computer. It collects weather information from a variety of sensors and records the data for historical purposes. It also serves a webpage that can be used to view the information it collects and records. The code to interface with the sensors, as well as the web server, was all written by me in python.</p>
 	</div>
 	<a href="/projects.html" class="nav-link terminal-link">(more)</a>
+</div>
+<hr class="terminal-hr">
+<div class="row">
+	<h2 class="fs-5 terminal-header">Posts</h2>
+	{% if posts|length == 0 %}
+	<div class="ms-3">
+		No Posts
+	</div>
+	{% endif %}
+	{% for post_id in site.sorted_post_ids[:2] %}
+	<div class="ms-3">
+		<a href="{{ posts[post_id].url }}" class="fs-6 terminal-link">{{ posts[post_id].title }}</a>
+		<small class="text-secondary">{{ posts[post_id].date }}</small>
+		<p class="ms-3">{{ posts[post_id].description }}</p>
+	</div>
+	{% endfor %}
+	<a href="/posts.html" class="nav-link terminal-link">(more)</a>
 </div>
 {% endblock %}

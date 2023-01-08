@@ -14,15 +14,28 @@
 {% endblock %}
 
 {% block main %}
-<small class="text-secondary">Written by {{ post.author }} on {{ post.date }}</small>
-{{ post.content }}
-{% if post.tags %}
+<div class="mb-4"><small class="text-secondary">Written by {{ post.author }} on {{ post.date }}</small></div>
 
-Tags:
+{{ post.content }}
+
+{% if post.tags or post.description %}
+<div class="mt-2">
+{% if post.tags %}
+<small class="text-secondary">Tags:</small>
 <ul class="list-inline text-secondary me-auto ps-3">
 	{% for tag in post.tags %}
 	<li class="list-inline-item">[{{ tag }}]</li>
 	{% endfor %}
 </ul>
 {% endif %}
+
+{% if post.description %}
+<small class="text-secondary">Description:</small>
+<p class="text-secondary ms-4">
+	{{ post.description }}
+</p>
+{% endif %}
+</div>
+{% endif %}
+
 {% endblock %}

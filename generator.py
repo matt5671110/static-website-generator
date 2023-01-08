@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 
 import os, shutil, traceback
+from datetime import datetime
 import markdown
 from jinja2 import Environment, FileSystemLoader
 
@@ -15,6 +16,7 @@ class WebsiteGenerator:
 		self.default_metadata = {}
 		self.getDefaultMetadata()
 		self.processPostData()
+		self.sortPostIdsByDate()
 		self.clearOutput()
 		self.copyStaticAssets()
 		self.renderContent()
@@ -32,10 +34,14 @@ class WebsiteGenerator:
 			print("Default Metadata: {}".format(str(self.default_metadata)))
 
 	def processPostData(self):
+		print("Processing posts ...")
 		post_files = os.listdir(os.path.join(self.abs_pwd, 'template', 'posts'))
 		for filename in post_files:
+			if os.path.splitext(filename)[1] != ".md":
+				print("Skipping {} because it is not a .md file.".format(filename))
+				continue
 			post_id = filename.rsplit(".", 1)[0]
-			post_title = post_id.split("-")[3]
+			post_title = post_id.split("-", 3)[3]
 			post_date = post_id[:-len(post_title)-len("-")]
 			path = os.path.join(self.abs_pwd, 'template', 'posts', filename)
 			metadata_mark_count = 0
@@ -61,10 +67,16 @@ class WebsiteGenerator:
 			print("Process Post: {}".format(str(post_metadata)))
 			self.post_data[post_id] = {**post_metadata, 'content': post_html, 'url': os.path.join('/posts',post_id + ".html")}
 
+	def sortPostIdsByDate(self):
+		print("Sorting post ids by date ...")
+		self.site_data['sorted_post_ids'] = sorted(self.post_data, key=lambda x:self.post_data[x]['date'], reverse=True)
+
 	def clearOutput(self):
 		print("Clearing output directory ...")
 		try:
-			shutil.rmtree(os.path.join(self.abs_pwd, 'public'))
+			public_path = os.path.join(self.abs_pwd, 'public')
+			if(os.path.exists(public_path) and os.path.isdir(public_path)):
+				shutil.rmtree(public_path)
 			os.mkdir(os.path.join(self.abs_pwd, 'public'))
 			os.mkdir(os.path.join(self.abs_pwd, 'public', 'posts'))
 		except:
@@ -96,7 +108,7 @@ class WebsiteGenerator:
 		for item in page_templates:
 			print("\t{}".format(item))
 			template = self.env.get_template(os.path.join('pages', item))
-			template_html = template.render(self.site_data)
+			template_html = template.render({'site': self.site_data, 'posts': self.post_data})
 			with open(os.path.join(self.abs_pwd, 'public', item), 'w', encoding="utf-8") as file:
 				file.write(template_html)
 
@@ -104,7 +116,7 @@ class WebsiteGenerator:
 		for post_id in self.post_data:
 			print("\t{}".format(self.post_data[post_id]['title']))
 			template = self.env.get_template(self.post_data[post_id]['template'])
-			template_html = template.render({**self.site_data, 'post': {**self.post_data[post_id], 'id': post_id}})
+			template_html = template.render({'site': self.site_data, 'post': {**self.post_data[post_id], 'id': post_id}})
 			with open(os.path.join(self.abs_pwd, 'public', self.post_data[post_id]['url'][1:]), 'w', encoding="utf-8") as file:
 				file.write(template_html)
 

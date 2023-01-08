@@ -1,0 +1,40 @@
+{% extends 'templates/base.html' %}
+
+{% block path %}
+<a href="/index.html" class="text-decoration-none text-info">~</a><span class="text-info">/</span><a href="/posts.html" class="text-decoration-none text-info">posts</a>
+{% endblock %}
+
+{% block navlist %}
+<li><a href="/index.html" class="nav-link text-secondary" title="home">~/</a></li>
+<li><a href="/about.html" class="nav-link text-secondary">~/about/</a></li>
+<li><a href="/projects.html" class="nav-link text-secondary">~/projects/</a></li>
+{% endblock %}
+
+{% block main %}
+<div class="row">
+	<h1 class="fs-5 terminal-header">Posts</h1>
+</div>
+{% if posts|length == 0 %}
+<div class="ms-3">
+	No Posts
+</div>
+{% endif %}
+{% for post_id in site.sorted_post_ids %}
+<div class="row">
+	<div class="ms-3">
+		<a href="{{ posts[post_id].url }}" class="fs-6 terminal-link">{{ posts[post_id].title }}</a>
+		<p class="my-0 py-0 lh-1"><small class="text-secondary">Author: {{ posts[post_id].author }}</small></p>
+		<p class="my-0 py-0 lh-1"><small class="text-secondary">Date: {{ posts[post_id].date }}</small></p>
+		<p class="ms-3 mb-0 pb-0">{{ posts[post_id].description }}</p>
+		{% if posts[post_id].tags %}
+		<ul class="list-inline text-secondary ms-auto ps-3 w-50 text-end">
+			{% for tag in posts[post_id].tags %}
+			<li class="list-inline-item">[{{ tag }}]</li>
+			{% endfor %}
+		</ul>
+		{% endif %}
+	</div>
+</div>
+{% if not loop.last %}<hr class="terminal-hr">{% endif %}
+{% endfor %}
+{% endblock %}
