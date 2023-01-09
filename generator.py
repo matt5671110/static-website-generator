@@ -30,6 +30,7 @@ class WebsiteGenerator:
 				value = value.strip()
 				if key == "tags":
 					value = value.split(" ")
+					value.sort()
 				self.default_metadata[key] = value
 			print("Default Metadata: {}".format(str(self.default_metadata)))
 
@@ -37,7 +38,7 @@ class WebsiteGenerator:
 		print("Processing posts ...")
 		post_files = os.listdir(os.path.join(self.abs_pwd, 'template', 'posts'))
 		for filename in post_files:
-			if os.path.splitext(filename)[1] != ".md":
+			if os.path.splitext(filename)[1] != ".md" and os.path.splitext(filename)[1] != ".html":
 				print("Skipping {} because it is not a .md file.".format(filename))
 				continue
 			post_id = filename.rsplit(".", 1)[0]
@@ -60,6 +61,7 @@ class WebsiteGenerator:
 						value = value.strip()
 						if key == "tags":
 							value = value.split(" ")
+							value.sort()
 						post_metadata[key] = value
 				post_markdown = str(post_file.read())
 			post_metadata = {**self.default_metadata, **post_metadata}
