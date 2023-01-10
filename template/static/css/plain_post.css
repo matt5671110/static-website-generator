@@ -1,9 +1,9 @@
-a {
+p a {
 	color: #0dcaf0;
 	width: auto;
 }
 
-a:hover {
+p a:hover {
 	background-color: #0dcaf0;
 	color: #fff;
 }
