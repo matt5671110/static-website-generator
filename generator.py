@@ -11,18 +11,20 @@ class WebsiteGenerator:
 		print("Working Directory:",self.abs_pwd)
 		self.env = Environment(loader=FileSystemLoader(os.path.join(self.abs_pwd, 'template')),
 		 trim_blocks=True)
+
+	def generate(self):
 		self.site_data = {}
 		self.post_data = {}
 		self.default_metadata = {}
-		self.getDefaultMetadata()
-		self.processPostData()
-		self.sortPostIdsByDate()
-		self.clearOutput()
-		self.copyStaticAssets()
-		self.renderContent()
+		self.__getDefaultMetadata()
+		self.__processPostData()
+		self.__sortPostIdsByDate()
+		self.__clearOutput()
+		self.__copyStaticAssets()
+		self.__renderContent()
 		print("Done.")
 
-	def getDefaultMetadata(self):
+	def __getDefaultMetadata(self):
 		with open(os.path.join(self.abs_pwd, 'default_metadata'), 'r') as defaultsfile:
 			for line in defaultsfile:
 				key, value = line.split(":")
@@ -34,7 +36,7 @@ class WebsiteGenerator:
 				self.default_metadata[key] = value
 			print("Default Metadata: {}".format(str(self.default_metadata)))
 
-	def processPostData(self):
+	def __processPostData(self):
 		print("Processing posts ...")
 		post_files = os.listdir(os.path.join(self.abs_pwd, 'template', 'posts'))
 		for filename in post_files:
@@ -69,23 +71,23 @@ class WebsiteGenerator:
 			print("Process Post: {}".format(str(post_metadata)))
 			self.post_data[post_id] = {**post_metadata, 'content': post_html, 'url': os.path.join('/posts',post_id + ".html")}
 
-	def sortPostIdsByDate(self):
+	def __sortPostIdsByDate(self):
 		print("Sorting post ids by date ...")
 		self.site_data['sorted_post_ids'] = sorted(self.post_data, key=lambda x:self.post_data[x]['date'], reverse=True)
 
-	def clearOutput(self):
+	def __clearOutput(self):
 		print("Clearing output directory ...")
 		try:
 			public_path = os.path.join(self.abs_pwd, 'public')
-			if(os.path.exists(public_path) and os.path.isdir(public_path)):
+			if os.path.exists(public_path) and os.path.isdir(public_path):
 				shutil.rmtree(public_path)
-			os.mkdir(os.path.join(self.abs_pwd, 'public'))
-			os.mkdir(os.path.join(self.abs_pwd, 'public', 'posts'))
+			os.mkdir(public_path)
+			os.mkdir(os.path.join(public_path, 'posts'))
 		except:
 			print("Error clearing output directory.")
 			traceback.print_exc()
 
-	def copyStaticAssets(self):
+	def __copyStaticAssets(self):
 		print("Copying static assets to output directory ...")
 		try:
 			shutil.copytree(os.path.join(self.abs_pwd, 'template', 'static'), os.path.join(self.abs_pwd, 'public'), dirs_exist_ok=True)
@@ -93,7 +95,7 @@ class WebsiteGenerator:
 			print("Error copying static assets.")
 			traceback.print_exc()
 
-	def renderContent(self):
+	def __renderContent(self):
 		print("Determining pages to render ...")
 		ignorelist = []
 		with open(os.path.join(self.abs_pwd, 'ignore_pages'), 'r') as ignorefile:
@@ -123,4 +125,5 @@ class WebsiteGenerator:
 				file.write(template_html)
 
 if __name__ == '__main__':
-	WebsiteGenerator()
+	generator = WebsiteGenerator()
+	generator.generate()
