@@ -7,3 +7,20 @@ p a:hover {
 	background-color: #0dcaf0;
 	color: #fff;
 }
+
+img {
+	max-width: 100%;
+}
+
+pre {
+	max-height: 75vh;
+	display: block;
+	background-color: #474949;
+	color: #d1d9e1;
+	padding: 1em;
+	overflow: auto;
+}
+
+pre code {
+	overflow-x: initial !important;
+}
