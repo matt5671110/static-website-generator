@@ -86,3 +86,9 @@
 	background-color: #0dcaf0;
 	color: #fff;
 }
+
+@media (min-width: 992px) {
+	.w-lg-50 {
+		width: 50% !important;
+	}
+}
