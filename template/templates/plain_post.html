@@ -6,9 +6,16 @@
 {% endblock %}
 
 {% block opengraph %}
-<meta name="og:title" content="Matthew Turner - {{ post.title }}">
+<meta name="og:site_name" content="Matthew Turner">
+<meta name="og:title" content="{{ post.title }}">
+{% if post.og_description %}
+<meta name="og:description" content="{{ post.og_description }}">
+{% else %}
 <meta name="og:description" content="{{ post.description }}">
+{% endif %}
 <meta name="og:type" content="article">
+<meta name="article:author" content="{{ post.author }}">
+<meta name="article:published_time" content="{{ post.date }}">
 <meta name="og:url" content="https://matthewturner.io{{ post.url }}">
 {% if post.og_img %}
 <meta name="og:image" content="{{ post.og_img }}">
