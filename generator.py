@@ -67,7 +67,7 @@ class WebsiteGenerator:
 						post_metadata[key] = value
 				post_markdown = str(post_file.read())
 			post_metadata = {**self.default_metadata, **post_metadata}
-			post_html = markdown.markdown(post_markdown)
+			post_html = markdown.markdown(post_markdown, output_format = "html5")
 			print("Process Post: {}".format(str(post_metadata)))
 			self.post_data[post_id] = {**post_metadata, 'content': post_html, 'url': os.path.join('/posts',post_id + ".html")}
 
