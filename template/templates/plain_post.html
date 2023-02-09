@@ -1,5 +1,20 @@
 {% extends 'templates/base.html' %}
 
+{% block meta %}
+<meta name="author" content="{{ post.author }}">
+<meta name="description" content="{{ post.description }}">
+{% endblock %}
+
+{% block opengraph %}
+<meta name="og:title" content="Matthew Turner - {{ post.title }}">
+<meta name="og:description" content="{{ post.description }}">
+<meta name="og:type" content="article">
+<meta name="og:url" content="https://matthewturner.io{{ post.url }}">
+{% if post.og_img %}
+<meta name="og:image" content="{{ post.og_img }}">
+{% endif %}
+{% endblock %}
+
 {% block title %}- {{ post.title }}{% endblock %}
 
 {% block css %}
@@ -7,7 +22,7 @@
 {% endblock %}
 
 {% block path %}
-<a href="/index.html" class="text-decoration-none text-info">~</a><span class="text-info">/</span><a href="/posts.html" class="text-decoration-none text-info">posts</a><span class="text-info">/</span><a href="{{ post.url }}" class="text-decoration-none text-info">{{ post.id }}</a>
+<a href="/index.html" class="text-decoration-none text-info d-none d-md-inline">~</a><span class="text-info d-none d-md-inline">/</span><a href="/posts.html" class="text-decoration-none text-info d-none d-md-inline">posts</a><span class="text-info">/</span><a href="{{ post.url }}" class="text-decoration-none text-info">{{ post.id }}</a>
 {% endblock %}
 
 {% block navlist %}

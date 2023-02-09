@@ -3,6 +3,7 @@ title: Automatic Capture of NOAA Satellite Images
 description: The National Oceanic and Atmospheric Administration (NOAA) owns and operates a number of satellites in orbit around earth. These satellites serve a number of different purposes, ranging from weather monitoring and prediction to helping search and rescue teams locate distress signals from emergency beacons. A group of these satellites known as Polar Operational Environmental Satellites (POES) remain in a low polar orbit — that is, their orbit goes north-south over the poles. This allows the satellites to get a complete view of earth every day as earth rotates underneath them.
 tags: bash python rtl-sdr satellite-images weather-station
 template: templates/post_with_code_highlight.html
+og_img: https://matthewturner.io/img/noaa-capture/20230207_160104-NOAA19.png
 ---
 #Automatic Capture of NOAA Satellite Images
 

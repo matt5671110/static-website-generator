@@ -58,7 +58,7 @@ class WebsiteGenerator:
 							break
 						continue
 					if metadata_mark_count == 1:
-						key, value = line.split(":")
+						key, value = line.split(":", 1)
 						key = key.strip()
 						value = value.strip()
 						if key == "tags":
