@@ -4,6 +4,8 @@ description: Learn about NOAA satellites, software defined radio, and automatica
 tags: bash python rtl-sdr satellite-images weather-station
 template: templates/post_with_code_highlight.html
 og_img: https://matthewturner.io/img/noaa-capture/20230207_160104-NOAA19.png
+edited: 2023-02-19
+2023-02-19-edit-reason: Indent code blocks for readability. Fix typo in the 'Final Setup' section.
 ---
 #Automatic Capture of NOAA Satellite Images
 
@@ -184,43 +186,55 @@ and put the following code into the file:
 
 This script doesn't have anything that needs to be customized. I will talk a bit about each part of the script and the differences from [the tutorial](https://www.instructables.com/Raspberry-Pi-NOAA-Weather-Satellite-Receiver/) I based this off of. First, all my scripts include this:
 
-	#Change directory to script directory
-	dir=$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
-	cd "$dir"
+``` { .bash .ms-4 }
+#Change directory to script directory
+dir=$(cd -P -- "$(dirname -- "${BASH_SOURCE[0]}")" && pwd -P)
+cd "$dir"
+```
 
 That just ensures that that working directory is the same directory the script resides in, no matter how the script is called. This allows me to use relative paths like `./schedule_satellite.sh` instead of absolute paths like `/opt/schedule_satellites/schedule_satellite.sh`.  
 Next, output folders are created if they don't already exist. My scripts save the generated image, the Two Line Element (TLE) data used, and the raw recorded audio received during a capture.
 
-	#Make output directories if they don't exist
-	[ -d images ] || mkdir images
-	[ -d tles ] || mkdir tles
-	[ -d audio ] || mkdir audio
+``` { .bash .ms-4 }
+#Make output directories if they don't exist
+[ -d images ] || mkdir images
+[ -d tles ] || mkdir tles
+[ -d audio ] || mkdir audio
+```
 
 The next part downloads the latest TLEs from celestrak to ensure predict knows the satellites' current orbits. It pieces out the orbital data for NOAA-15, NOAA-18, and NOAA-19 and saves them in a file called noaa.tle. Finally, it removes the raw file it downloaded from celestrak.
 
-	#Update TLEs
-	wget -q https://www.celestrak.com/NORAD/elements/weather.txt -O weather.txt
-	grep "NOAA 15" weather.txt -A 2 > noaa.tle
-	grep "NOAA 18" weather.txt -A 2 >> noaa.tle
-	grep "NOAA 19" weather.txt -A 2 >> noaa.tle
-	[ -e "weather.txt" ] && rm weather.txt
+``` { .bash .ms-4 }
+#Update TLEs
+wget -q https://www.celestrak.com/NORAD/elements/weather.txt -O weather.txt
+grep "NOAA 15" weather.txt -A 2 > noaa.tle
+grep "NOAA 18" weather.txt -A 2 >> noaa.tle
+grep "NOAA 19" weather.txt -A 2 >> noaa.tle
+[ -e "weather.txt" ] && rm weather.txt
+```
 
 Then, old data from the last set of passes is removed if it exists.
 
-	#Remove data from previously scheduled jobs
-	[ -e "queued_jobs" ] && rm queued_jobs
+``` { .bash .ms-4 }
+#Remove data from previously scheduled jobs
+[ -e "queued_jobs" ] && rm queued_jobs
+```
 
 All passes for the satellites are scheduled for the day by running the schedule_satellite.sh script we will make next for each satellite.
 
-	#Schedule Satellite Passes for the day
-	./schedule_satellite.sh "NOAA 19" 137.1
-	./schedule_satellite.sh "NOAA 18" 137.9125
-	./schedule_satellite.sh "NOAA 15" 137.62
+``` { .bash .ms-4 }
+#Schedule Satellite Passes for the day
+./schedule_satellite.sh "NOAA 19" 137.1
+./schedule_satellite.sh "NOAA 18" 137.9125
+./schedule_satellite.sh "NOAA 15" 137.62
+```
 
 Finally, my handle_conflicts.py script is called to try and make sure only the best passes are recorded if there are any conflicts.
 
-	#Handle conflicts
-	/usr/bin/python3 handle_conflicts.py
+``` { .bash .ms-4 }
+#Handle conflicts
+/usr/bin/python3 handle_conflicts.py
+```
 
 ####Create schedule_satellite.sh
 
@@ -288,19 +302,23 @@ The next script we have to make will schedule all passes for a specific satellit
 This script ended up being fairly complicated, so I'm not going to go through each part of it. Basically, it loops through each pass for the given satellite and schedules a command to run at the start of each pass if it meets some criteria. Compared to the script from [the tutorial](https://www.instructables.com/Raspberry-Pi-NOAA-Weather-Satellite-Receiver/), there are many changes. I fixed some issues with the syntax provided to the date command, which gave incorrect results in some places.  
 I also added some variables you can change to your liking: 
 
-	#Variables
-	readonly min_elevation=25            #Satellites that don't reach this elevation will be ignored
-	readonly record_above_elevation=5    #Set to 0 to record entire pass (NOTE: values above 0 will not be exact)
+``` { .bash .ms-4 }
+#Variables
+readonly min_elevation=25            #Satellites that don't reach this elevation will be ignored
+readonly record_above_elevation=5    #Set to 0 to record entire pass (NOTE: values above 0 will not be exact)
+```
 
 Basically, `min_elevation` is the elevation a satellite must reach in degrees before it will be scheduled for a pass. Generally, the closer the satellite comes to being directly overhead (90 degrees) the better the image quality will be. `record_above_elevation` is also a value in degrees. The script will try to schedule the pass so it only starts recording after the satellite rises above the value you set for `record_above_elevation`, and stop recording after it falls below the value you set for `record_above_elevation`. As noted in the script `record_above_elevation` is far from exact and may end up missing large portions of the satellite pass. If you set it to 0 it will record for the entire pass from horizon to horizon.
 
 The other major difference that I will talk about is here:
 
-	prev_queue=`atq`
-	echo "/bin/bash ${receive_data_command} \"${satellite_name}\" \"${frequency}\" \"${filename_base}\" \"${tle_filename}\" \"${start_timestamp}\" \"${capture_duration}\"" | at -M ${local_date_string}
-	new_queue=`atq`
-	atid=`diff <(echo "${prev_queue}") <(echo "${new_queue}") | tail -n1 | cut -d " " -f 2 | cut -f 1`
-	echo "${atid} ${satellite_name//" "} ${start_timestamp} ${end_timestamp} ${MAX_ELEV}" >> queued_jobs
+``` { .bash .ms-4 }
+prev_queue=`atq`
+echo "/bin/bash ${receive_data_command} \"${satellite_name}\" \"${frequency}\" \"${filename_base}\" \"${tle_filename}\" \"${start_timestamp}\" \"${capture_duration}\"" | at -M ${local_date_string}
+new_queue=`atq`
+atid=`diff <(echo "${prev_queue}") <(echo "${new_queue}") | tail -n1 | cut -d " " -f 2 | cut -f 1`
+echo "${atid} ${satellite_name//" "} ${start_timestamp} ${end_timestamp} ${MAX_ELEV}" >> queued_jobs
+```
 
 This part of the script actually generates the command to be run by `at`. Unlike the script from the tutorial, this also saves some data to a file called queued_jobs, including the id of the scheduled command so it can be removed later from the handle_conflicts.py script.
 
@@ -450,7 +468,7 @@ To install the systemd unit files, run the following commands.
 
 `sudo systemctl start schedule_satellites.timer`
 
-That's finally it. I've had this setup functioning non-stop without issue for months. Your computer should now automatically start recording images from satellites starting from midnight the next night. If you want to start the process immediately, you can run the `/opt/schedule_satellites/schedule_all.sh` yourself or run the following command `sudo systemctl start schedule_satellites.service`.
+That's finally it. I've had this setup functioning non-stop without issue for months. Your computer should now automatically start recording images from satellites starting from midnight the next night. If you want to start the process immediately, you can run the `/opt/schedule_satellites/schedule_all.sh` script yourself or run the following command `sudo systemctl start schedule_satellites.service`.
 
 ##Conclusion
 
