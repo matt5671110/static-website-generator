@@ -16,6 +16,9 @@
 <meta property="og:type" content="article">
 <meta property="article:author" content="{{ post.author }}">
 <meta property="article:published_time" content="{{ post.date }}">
+{% if post.edited %}
+<meta property="article:modified_time" content="{{ post.edited[0].date }}">
+{% endif %}
 <meta property="og:url" content="https://matthewturner.io{{ post.url }}">
 {% if post.og_img %}
 <meta property="og:image" content="{{ post.og_img }}">
@@ -40,12 +43,32 @@
 {% endblock %}
 
 {% block main %}
-<div class="mb-4"><small class="text-secondary">Written by {{ post.author }} on {{ post.date }}</small></div>
+<div class="mb-4">
+	<small class="text-secondary">Written by {{ post.author }} on {{ post.date }}</small>
+	{% if post.edited %}
+	<br>
+	<small class="text-secondary ms-2">Last edited on {{ post.edited[0].date }}</small>
+	{% endif %}
+</div>
 
 {{ post.content }}
 
-{% if post.tags or post.description %}
+{% if post.edited or post.tags or post.description %}
 <div class="mt-2">
+{% if post.edited %}
+<small class="text-secondary">Edits:</small>
+<p class="text-secondary ms-4">
+	{% for edit in post.edited %}
+	Edited on {{ edit.date }}
+	<br>
+	<span class="ms-2">Reason: {{ edit.reason }}</span>
+	{% if not loop.last %}
+	<br>
+	{% endif %}
+	{% endfor %}
+</p>
+{% endif %}
+
 {% if post.tags %}
 <small class="text-secondary">Tags:</small>
 <ul class="list-inline text-secondary me-auto ps-3">

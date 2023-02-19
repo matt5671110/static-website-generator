@@ -51,6 +51,7 @@ class WebsiteGenerator:
 			post_metadata = {'title': post_title, 'date': post_date}
 			post_markdown = None
 			with open(path, 'r', encoding="utf-8") as post_file:
+				edit_data = []
 				for line in post_file:
 					if line.strip() == "---" and metadata_mark_count < 2:
 						metadata_mark_count += 1
@@ -64,10 +65,24 @@ class WebsiteGenerator:
 						if key == "tags":
 							value = value.split(" ")
 							value.sort()
+						if key == "edited":
+							edit_dates = value.split(" ")
+							edit_dates.sort(reverse=True)
+							for edit_date in edit_dates:
+								edit_data.append({"date": edit_date, "reason": "None given."})
+							continue
+						if "-edit-reason" in key:
+							date = key.removesuffix("-edit-reason")
+							for edit in edit_data:
+								if edit["date"] == date:
+									edit["reason"] = value
+							continue
 						post_metadata[key] = value
+				if edit_data:
+					post_metadata["edited"] = edit_data
 				post_markdown = str(post_file.read())
 			post_metadata = {**self.default_metadata, **post_metadata}
-			post_html = markdown.markdown(post_markdown, output_format = "html5")
+			post_html = markdown.markdown(post_markdown, extensions=['fenced_code'], output_format = "html5")
 			print("Process Post: {}".format(str(post_metadata)))
 			self.post_data[post_id] = {**post_metadata, 'content': post_html, 'url': os.path.join('/posts',post_id + ".html")}
 
