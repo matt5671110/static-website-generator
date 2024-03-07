@@ -1,5 +1,13 @@
 {% extends 'templates/base.html' %}
 
+{% block opengraph %}
+<meta property="og:title" content="Matthew Turner - Posts">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://matthewturner.io/posts.html">
+{% endblock %}
+
+{% block title %}- Posts{% endblock %}
+
 {% block path %}
 <a href="/index.html" class="text-decoration-none text-info">~</a><span class="text-info">/</span><a href="/posts.html" class="text-decoration-none text-info">posts</a>
 {% endblock %}
