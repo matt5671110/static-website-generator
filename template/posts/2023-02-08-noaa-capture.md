@@ -4,8 +4,9 @@ description: Learn about NOAA satellites, software defined radio, and automatica
 tags: bash python rtl-sdr satellite-images weather-station
 template: templates/post_with_code_highlight.html
 og_img: https://matthewturner.io/img/noaa-capture/20230207_160104-NOAA19.png
-edited: 2023-02-19
+edited: 2023-02-19 2025-01-22
 2023-02-19-edit-reason: Indent code blocks for readability. Fix typo in the 'Final Setup' section.
+2025-01-22-edit-reason: Fix incomplete commands for linking service and timer to systemd.
 ---
 #Automatic Capture of NOAA Satellite Images
 
@@ -458,9 +459,9 @@ The last thing we need to do is set up the file permissions so our scripts can e
 
 To install the systemd unit files, run the following commands.
 
-`sudo ln -s /opt/schedule_satellites/schedule_satellites.service`
+`sudo ln -s /opt/schedule_satellites/schedule_satellites.service /etc/systemd/system/`
 
-`sudo ln -s /opt/schedule_satellites/schedule_satellites.timer`
+`sudo ln -s /opt/schedule_satellites/schedule_satellites.timer /etc/systemd/system/`
 
 `sudo systemctl daemon-reload`
 
